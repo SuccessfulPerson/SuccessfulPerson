@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل السجل</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <style>
+        body { direction: rtl; font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin-top: 20px; }
+        .flatpickr-input { width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">تعديل السجل</h2>
+        <!-- إشعارات -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="type" class="form-label">النوع</label>
+                <input type="text" name="type" class="form-control" value="{{ record[1] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="R_Name" class="form-label">اسم المستلم</label>
+                <input type="text" name="R_Name" class="form-control" value="{{ record[2] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="Bond_N" class="form-label">رقم السند</label>
+                <input type="text" name="Bond_N" class="form-control" value="{{ record[3] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="note" class="form-label">ملاحظة</label>
+                <input type="text" name="note" class="form-control" value="{{ record[4] }}">
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">التاريخ</label>
+                <input type="text" name="date" class="form-control flatpickr" value="{{ record[5] ~ '-' ~ record[6] ~ '-' ~ record[7] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">الصور (اختياري)</label>
+                <input type="file" name="images" class="form-control" accept="image/*" multiple>
+            </div>
+            <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">إلغاء</a>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
+    <script>
+        flatpickr(".flatpickr", {
+            locale: "ar",
+            dateFormat: "Y-m-d",
+            enableTime: false,
+            allowInput: true
+        });
+    </script>
+</body>
+</html>

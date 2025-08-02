@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض السجل</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { direction: rtl; font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin-top: 20px; }
+        .img-fluid { max-height: 200px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">تفاصيل السجل #{{ record[0] }}</h2>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>المعرف</th>
+                        <td>{{ record[0] }}</td>
+                    </tr>
+                    <tr>
+                        <th>النوع</th>
+                        <td>{{ record[1] }}</td>
+                    </tr>
+                    <tr>
+                        <th>اسم المستلم</th>
+                        <td>{{ record[2] }}</td>
+                    </tr>
+                    <tr>
+                        <th>رقم السند</th>
+                        <td>{{ record[3] }}</td>
+                    </tr>
+                    <tr>
+                        <th>ملاحظة</th>
+                        <td>{{ record[4] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>التاريخ</th>
+                        <td>{{ record[5] }}-{{ record[6] }}-{{ record[7] }}</td>
+                    </tr>
+                    <tr>
+                        <th>رقم الصورة</th>
+                        <td>{{ record[8] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>نوع المسار</th>
+                        <td>{{ record[9] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>المفضلة</th>
+                        <td>{{ record[10] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>الحالة</th>
+                        <td>{{ record[11] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>رقم الهاتف</th>
+                        <td>{{ record[12] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>الوقت</th>
+                        <td>{{ record[13] or '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>المدخل</th>
+                        <td>{{ record[14] or '-' }}</td>
+                    </tr>
+                </table>
+                <h5>الصور المرتبطة:</h5>
+                <div class="row">
+                    {% if images %}
+                        {% for image in images %}
+                            <div class="col-md-4">
+                                <img src="data:image/jpeg;base64,{{ image[0] }}" class="img-fluid" alt="صورة">
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>لا توجد صور مرتبطة بهذا السجل.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">رجوع</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
